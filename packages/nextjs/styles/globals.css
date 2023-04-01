@@ -30,3 +30,78 @@ p {
 .btn.btn-ghost {
   @apply shadow-none;
 }
+
+.goalsListContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  position: relative;
+}
+
+.goalCard {
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    max-width: 480px;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.goalTitle {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.goalData {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.divider {
+    margin: 1.5rem 0;
+    border-color: rgba(0, 0, 0, 0.1);
+    border-style: solid;
+}
+
+
+.sliderWrapper {
+  display: flex;
+  overflow: hidden;
+  gap: 1.5rem;
+  padding-bottom: 1.5rem;
+  width: 100%;
+  max-width: calc(480px * 3 + 1.5rem * 2);
+}
+
+/*.sliderWrapper::-webkit-scrollbar {
+  display: none;
+}*/
+
+.sliderContent {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.arrowLeft {
+  left: 0;
+}
+
+.arrowRight {
+  right: 0;
+}
