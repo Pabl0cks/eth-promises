@@ -1,10 +1,11 @@
 import React from "react";
-// Import the GoalsList component
+// Import the components
 import DelegatedGoalsList from "~~/components/DelegatedGoalsList";
 import GoalContractComponent from "~~/components/GoalContract";
 import GoalsList from "~~/components/GoalsList";
+import MyGoalsList from "~~/components/MyGoalsList";
 
-// Import the DelegatedGoalsList component
+// Import the MyGoalsList component
 
 const EthPromise = () => {
   return (
@@ -12,6 +13,11 @@ const EthPromise = () => {
       <h1 className="text-3xl font-bold mb-4">Promise on ETH</h1>
       <div>
         <GoalContractComponent />
+      </div>
+      {/* Add the MyGoalsList component as a section */}
+      <div>
+        <h2 className="text-2xl font-bold mt-8">Your Goals</h2>
+        <MyGoalsList />
       </div>
       {/* Add the DelegatedGoalsList component as a section */}
       <div>

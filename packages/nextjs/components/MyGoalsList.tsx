@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BigNumber } from "ethers";
 import { formatEther } from "ethers/lib/utils";
 import { useAccount } from "wagmi";
-import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 interface Goal {
   id: number;
@@ -14,35 +14,34 @@ interface Goal {
   failed: boolean;
 }
 
-const DelegatedGoalsList = () => {
+const MyGoalsList = () => {
   const [goals, setGoals] = useState<Goal[]>([]);
-  const [newGoalIdForCompletion, setnewGoalIdForCompletion] = useState<number>(0);
-  const [newGoalIdForFailure, setnewGoalIdForFailure] = useState<number>(0);
   const { address } = useAccount();
 
-  const delegatedGoals = useScaffoldContractRead({
+  const allGoals = useScaffoldContractRead({
     contractName: "GoalContract",
-    functionName: "getDelegatedGoals",
-    args: [address],
+    functionName: "getAllGoals",
   });
 
   useEffect(() => {
-    if (delegatedGoals.data) {
-      const fetchedGoals: Goal[] = delegatedGoals.data.map((goalData: any) => {
-        return {
-          id: goalData.id.toNumber(),
-          creator: goalData.creator,
-          delegate: goalData.delegate,
-          deadline: goalData.deadline.toNumber(),
-          failFee: BigNumber.from(goalData.failFee.toString()),
-          completed: goalData.completed,
-          failed: goalData.failed,
-        };
-      });
+    if (allGoals.data) {
+      const fetchedGoals: Goal[] = allGoals.data
+        .filter((goalData: any) => goalData.creator === address)
+        .map((goalData: any) => {
+          return {
+            id: goalData.id.toNumber(),
+            creator: goalData.creator,
+            delegate: goalData.delegate,
+            deadline: goalData.deadline.toNumber(),
+            failFee: BigNumber.from(goalData.failFee.toString()),
+            completed: goalData.completed,
+            failed: goalData.failed,
+          };
+        });
 
       setGoals(fetchedGoals);
     }
-  }, [delegatedGoals.data]);
+  }, [allGoals.data, address]);
 
   const formatDate = (timestamp: number): string => {
     const date = new Date(timestamp);
@@ -57,25 +56,12 @@ const DelegatedGoalsList = () => {
     return new Intl.DateTimeFormat("en-US", options).format(date);
   };
 
-  const confirmCompletionTx = useScaffoldContractWrite({
-    contractName: "GoalContract",
-    functionName: "confirmCompletion",
-    args: [newGoalIdForCompletion ? BigNumber.from(newGoalIdForCompletion) : BigNumber.from("0")],
-  });
-
-  const confirmFailureTx = useScaffoldContractWrite({
-    contractName: "GoalContract",
-    functionName: "confirmFailure",
-    args: [newGoalIdForFailure ? BigNumber.from(newGoalIdForFailure) : BigNumber.from("0")],
-  });
-
-  // ...
   return (
     <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
       <div className="rounded-t mb-0 px-4 py-3 border-0">
         <div className="flex flex-wrap items-center">
           <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-            <h3 className="font-semibold text-lg text-blueGray-700">Delegated Goals</h3>
+            <h3 className="font-semibold text-lg text-blueGray-700">My Goals</h3>
           </div>
         </div>
       </div>
@@ -133,32 +119,6 @@ const DelegatedGoalsList = () => {
                     <span className="bg-blue-500 text-white font-semibold px-2 py-1 rounded-full">In Progress</span>
                   )}
                 </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {!goal.completed && !goal.failed && (
-                    <>
-                      <button
-                        onClick={() => {
-                          setnewGoalIdForCompletion(goal.id);
-                          console.log("newGoalIdForCompletion: " + newGoalIdForCompletion);
-                          confirmCompletionTx.write();
-                        }}
-                        className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      >
-                        Mark as Complete
-                      </button>
-                      <button
-                        onClick={() => {
-                          setnewGoalIdForFailure(goal.id);
-                          console.log("newGoalIdForFailure: " + newGoalIdForFailure);
-                          confirmFailureTx.write();
-                        }}
-                        className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      >
-                        Mark as Failed
-                      </button>
-                    </>
-                  )}
-                </td>
               </tr>
             ))}
           </tbody>
@@ -168,4 +128,4 @@ const DelegatedGoalsList = () => {
   );
 };
 
-export default DelegatedGoalsList;
+export default MyGoalsList;
