@@ -74,8 +74,8 @@ const GoalsList = () => {
       <div className="sliderWrapper">
         <div className="sliderContent" ref={sliderContentRef}>
           {goals.map(goal => (
-            <>
-              <div key={goal.id} className="goalCard">
+            <div key={goal.id}>
+              <div className="goalCard">
                 <p className="goalTitle">Goal ID: {goal.id}</p>
                 <p className="goalData">Creator: {goal.creator}</p>
                 <p className="goalData">Delegate: {goal.delegate}</p>
@@ -86,7 +86,7 @@ const GoalsList = () => {
                 </p>
               </div>
               <hr className="divider" />
-            </>
+            </div>
           ))}
         </div>
       </div>
