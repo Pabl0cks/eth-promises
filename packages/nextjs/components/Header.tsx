@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Bars3Icon, BugAntIcon, CurrencyDollarIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 
@@ -45,18 +45,6 @@ export const Header = () => {
           Debug Contracts
         </NavLink>
       </li>
-      <li>
-        <NavLink href="/example-ui">
-          <SparklesIcon className="h-4 w-4" />
-          Example UI
-        </NavLink>
-      </li>
-      <li>
-        <NavLink href="/EthPromise">
-          <CurrencyDollarIcon className="h-4 w-4" />
-          Eth Promise
-        </NavLink>
-      </li>
     </>
   );
 
@@ -89,8 +77,7 @@ export const Header = () => {
             <Image alt="SE2 logo" className="cursor-pointer" fill src="/logo.svg" />
           </Link>
           <div className="flex flex-col">
-            <span className="font-bold leading-tight">Scaffold-eth</span>
-            <span className="text-xs">Ethereum dev stack</span>
+            <span className="font-bold leading-tight">ETH-Promises</span>
           </div>
         </div>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</ul>
