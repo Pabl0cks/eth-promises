@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ethers } from "ethers";
 import { BigNumber } from "ethers";
+import { AddressInput, EtherInput } from "~~/components/scaffold-eth";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 const GoalContractComponent = () => {
@@ -31,13 +32,7 @@ const GoalContractComponent = () => {
           <label htmlFor="delegatedAddress" className="block text-gray-700 text-sm font-semibold mb-2">
             Delegated Address:
           </label>
-          <input
-            id="delegatedAddress"
-            type="text"
-            value={delegatedAddress}
-            onChange={e => setDelegatedAddress(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
+          <AddressInput value={delegatedAddress} onChange={address => setDelegatedAddress(address)} />
         </div>
 
         <div className="mb-4">
@@ -49,7 +44,7 @@ const GoalContractComponent = () => {
             type="number"
             value={deadline}
             onChange={e => setDeadline(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="flex border-2 border-base-300 bg-base-200 rounded-full text-accent input focus:outline-none focus:bg-transparent focus:text-gray-400 h-[2.2rem] min-h-[2.2rem] px-4 w-full font-medium placeholder:text-accent/50 text-gray-400"
           />
         </div>
 
@@ -57,13 +52,7 @@ const GoalContractComponent = () => {
           <label htmlFor="failFee" className="block text-gray-700 text-sm font-semibold mb-2">
             Fail Fee (in ETH):
           </label>
-          <input
-            id="failFee"
-            type="text"
-            value={failFee}
-            onChange={e => setFailFee(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
+          <EtherInput value={failFee} onChange={amount => setFailFee(amount)} />
         </div>
 
         <div className="mb-4">
@@ -75,13 +64,10 @@ const GoalContractComponent = () => {
             value={goalText}
             onChange={e => setGoalText(e.target.value)}
             rows={4}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="h-auto border-2 border-base-300 rounded-xl bg-base-200 text-accent input focus:outline-none focus:bg-transparent focus:text-gray-400 px-4 py-2 w-full font-medium placeholder:text-accent/50 text-gray-400"
           />
         </div>
-        <button
-          onClick={createGoalTx.writeAsync}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
+        <button onClick={createGoalTx.writeAsync} className="btn-primary btn">
           Create Goal
         </button>
       </div>
