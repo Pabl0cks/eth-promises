@@ -10,7 +10,11 @@ import MyGoalsList from "~~/components/MyGoalsList";
 const EthPromise = () => {
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-4">Promise on ETH</h1>
+      <div className="container mx-auto px-4 text-center my-10">
+        <h1 className="text-3xl font-bold">Promise on ETH</h1>
+        <p className="mt-0">Put your ETH where your mouth is!</p>
+      </div>
+
       <div>
         <GoalContractComponent />
       </div>

@@ -26,25 +26,19 @@ const GoalContractComponent = () => {
   return (
     <div className="container mx-auto px-4">
       {/* Render the form to create a new goal */}
-      <div className="w-full max-w-md mx-auto mt-10">
-        <h2 className="text-2xl font-semibold mb-5">Create Goal</h2>
+      <div className="w-full max-w-lg mx-auto mt-10 border-primary border-8 p-10">
+        <h2 className="text-2xl font-semibold mb-5">Create Goal 🏆</h2>
         <div className="mb-4">
-          <label htmlFor="delegatedAddress" className="block text-gray-700 text-sm font-semibold mb-2">
-            Delegated Address:
+          <label htmlFor="goalText" className="block text-gray-700 text-sm font-semibold mb-2">
+            Goal Description:
           </label>
-          <AddressInput value={delegatedAddress} onChange={address => setDelegatedAddress(address)} />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="deadline" className="block text-gray-700 text-sm font-semibold mb-2">
-            Deadline (in hours):
-          </label>
-          <input
-            id="deadline"
-            type="number"
-            value={deadline}
-            onChange={e => setDeadline(e.target.value)}
-            className="flex border-2 border-base-300 bg-base-200 rounded-full text-accent input focus:outline-none focus:bg-transparent focus:text-gray-400 h-[2.2rem] min-h-[2.2rem] px-4 w-full font-medium placeholder:text-accent/50 text-gray-400"
+          <textarea
+            id="goalText"
+            value={goalText}
+            onChange={e => setGoalText(e.target.value)}
+            placeholder="I'll leave my job before the end of the month..."
+            rows={4}
+            className="h-auto border-2 border-base-300 rounded-xl bg-base-200 text-accent input focus:outline-none focus:bg-transparent focus:text-gray-400 px-4 py-2 w-full font-medium placeholder:text-accent/50 text-gray-400"
           />
         </div>
 
@@ -56,20 +50,35 @@ const GoalContractComponent = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="goalText" className="block text-gray-700 text-sm font-semibold mb-2">
-            Goal Text:
+          <label htmlFor="deadline" className="block text-gray-700 text-sm font-semibold mb-2">
+            Deadline (in hours):
           </label>
-          <textarea
-            id="goalText"
-            value={goalText}
-            onChange={e => setGoalText(e.target.value)}
-            rows={4}
-            className="h-auto border-2 border-base-300 rounded-xl bg-base-200 text-accent input focus:outline-none focus:bg-transparent focus:text-gray-400 px-4 py-2 w-full font-medium placeholder:text-accent/50 text-gray-400"
+          <input
+            id="deadline"
+            type="number"
+            value={deadline}
+            placeholder="24"
+            onChange={e => setDeadline(e.target.value)}
+            className="flex border-2 border-base-300 bg-base-200 rounded-full text-accent input focus:outline-none focus:bg-transparent focus:text-gray-400 h-[2.2rem] min-h-[2.2rem] px-4 w-full font-medium placeholder:text-accent/50 text-gray-400"
           />
         </div>
-        <button onClick={createGoalTx.writeAsync} className="btn-primary btn">
-          Create Goal
-        </button>
+
+        <div className="mb-4">
+          <label htmlFor="delegatedAddress" className="block text-gray-700 text-sm font-semibold mb-2">
+            Supervisor&apos;s Address:
+          </label>
+          <AddressInput
+            value={delegatedAddress}
+            onChange={address => setDelegatedAddress(address)}
+            placeholder="The friend who is going to validate your goal"
+          />
+        </div>
+
+        <div className="flex justify-center">
+          <button onClick={createGoalTx.writeAsync} className="btn-primary btn">
+            Create Goal
+          </button>
+        </div>
       </div>
     </div>
   );
