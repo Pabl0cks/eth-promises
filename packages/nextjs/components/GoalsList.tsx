@@ -11,6 +11,7 @@ interface Goal {
   failFee: BigNumber;
   completed: boolean;
   failed: boolean;
+  goalText: string;
 }
 
 const GoalsList = () => {
@@ -46,6 +47,7 @@ const GoalsList = () => {
           failFee: BigNumber.from(goalData.failFee.toString()),
           completed: goalData.completed,
           failed: goalData.failed,
+          goalText: goalData.goalText,
         };
       });
 
@@ -77,6 +79,7 @@ const GoalsList = () => {
             <div key={goal.id}>
               <div className="goalCard">
                 <p className="goalTitle">Goal ID: {goal.id}</p>
+                <p className="goalData">Goal Text: {goal.goalText}</p>
                 <p className="goalData">Creator: {goal.creator}</p>
                 <p className="goalData">Delegate: {goal.delegate}</p>
                 <p className="goalData">Deadline: {formatDate(goal.deadline)} (UTC)</p>

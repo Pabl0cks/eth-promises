@@ -8,6 +8,7 @@ const GoalContractComponent = () => {
   const [delegatedAddress, setDelegatedAddress] = useState("");
   const [deadline, setDeadline] = useState("");
   const [failFee, setFailFee] = useState("");
+  const [goalText, setGoalText] = useState("");
 
   const createGoalTx = useScaffoldContractWrite({
     contractName: "GoalContract",
@@ -16,6 +17,7 @@ const GoalContractComponent = () => {
       delegatedAddress,
       BigNumber.from(Date.now() + Number(deadline) * 60 * 60 * 1000),
       failFee ? ethers.utils.parseEther(failFee) : ethers.utils.parseEther("0"),
+      goalText,
     ],
     value: failFee || "0",
   });
@@ -64,6 +66,18 @@ const GoalContractComponent = () => {
           />
         </div>
 
+        <div className="mb-4">
+          <label htmlFor="goalText" className="block text-gray-700 text-sm font-semibold mb-2">
+            Goal Text:
+          </label>
+          <textarea
+            id="goalText"
+            value={goalText}
+            onChange={e => setGoalText(e.target.value)}
+            rows={4}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
         <button
           onClick={createGoalTx.writeAsync}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

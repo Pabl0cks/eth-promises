@@ -10,6 +10,7 @@ interface Goal {
   delegate: string;
   deadline: number;
   failFee: BigNumber;
+  goalText: string;
   completed: boolean;
   failed: boolean;
 }
@@ -34,6 +35,7 @@ const MyGoalsList = () => {
             delegate: goalData.delegate,
             deadline: goalData.deadline.toNumber(),
             failFee: BigNumber.from(goalData.failFee.toString()),
+            goalText: goalData.goalText,
             completed: goalData.completed,
             failed: goalData.failed,
           };
@@ -73,6 +75,9 @@ const MyGoalsList = () => {
                 Goal ID
               </th>
               <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                Goal Text
+              </th>
+              <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                 Creator
               </th>
               <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
@@ -87,9 +92,6 @@ const MyGoalsList = () => {
               <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                 Status
               </th>
-              <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
-                Actions
-              </th>
             </tr>
           </thead>
           <tbody>
@@ -97,6 +99,9 @@ const MyGoalsList = () => {
               <tr key={goal.id}>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   {goal.id}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  {goal.goalText}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   {goal.creator}

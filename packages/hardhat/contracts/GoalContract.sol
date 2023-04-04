@@ -14,6 +14,7 @@ contract GoalContract {
     uint256 failFee;
     bool completed;
     bool failed;
+    string goalText;
   }
 
   // Declare contract state variables.
@@ -46,7 +47,12 @@ contract GoalContract {
   }
 
   // Function to create a new goal.
-  function createGoal(address payable delegate, uint256 deadline, uint256 failFee) external payable {
+  function createGoal(
+    address payable delegate,
+    uint256 deadline,
+    uint256 failFee,
+    string memory goalText
+  ) external payable {
     // Ensure that the caller sent enough Ether to cover the fail fee.
     require(msg.value == failFee, "Incorrect fail fee sent.");
 
@@ -54,7 +60,7 @@ contract GoalContract {
     uint256 goalId = nextGoalId++;
 
     // Create a new Goal struct and store it in the goals mapping.
-    goals[goalId] = Goal(goalId, payable(msg.sender), delegate, deadline, failFee, false, false);
+    goals[goalId] = Goal(goalId, payable(msg.sender), delegate, deadline, failFee, false, false, goalText);
 
     // Add the new goal ID to the list of goals delegated to the specified delegate.
     delegatedGoals[delegate].push(goalId);

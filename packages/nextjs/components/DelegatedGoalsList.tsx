@@ -12,6 +12,7 @@ interface Goal {
   failFee: BigNumber;
   completed: boolean;
   failed: boolean;
+  goalText: string;
 }
 
 const DelegatedGoalsList = () => {
@@ -37,12 +38,25 @@ const DelegatedGoalsList = () => {
           failFee: BigNumber.from(goalData.failFee.toString()),
           completed: goalData.completed,
           failed: goalData.failed,
+          goalText: goalData.goalText,
         };
       });
 
       setGoals(fetchedGoals);
     }
   }, [delegatedGoals.data]);
+
+  useEffect(() => {
+    if (newGoalIdForCompletion) {
+      confirmCompletionTx.write();
+    }
+  }, [newGoalIdForCompletion]);
+
+  useEffect(() => {
+    if (newGoalIdForFailure) {
+      confirmFailureTx.write();
+    }
+  }, [newGoalIdForFailure]);
 
   const formatDate = (timestamp: number): string => {
     const date = new Date(timestamp);
@@ -69,6 +83,16 @@ const DelegatedGoalsList = () => {
     args: [newGoalIdForFailure ? BigNumber.from(newGoalIdForFailure) : BigNumber.from("0")],
   });
 
+  const handleMarkAsComplete = (goalId: number) => {
+    setnewGoalIdForCompletion(goalId);
+    confirmCompletionTx.write();
+  };
+
+  const handleMarkAsFailed = (goalId: number) => {
+    setnewGoalIdForFailure(goalId);
+    confirmFailureTx.write();
+  };
+
   // ...
   return (
     <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
@@ -85,6 +109,9 @@ const DelegatedGoalsList = () => {
             <tr>
               <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                 Goal ID
+              </th>
+              <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                Goal Text
               </th>
               <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                 Creator
@@ -113,6 +140,9 @@ const DelegatedGoalsList = () => {
                   {goal.id}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  {goal.goalText}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   {goal.creator}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -137,21 +167,13 @@ const DelegatedGoalsList = () => {
                   {!goal.completed && !goal.failed && (
                     <>
                       <button
-                        onClick={() => {
-                          setnewGoalIdForCompletion(goal.id);
-                          console.log("newGoalIdForCompletion: " + newGoalIdForCompletion);
-                          confirmCompletionTx.write();
-                        }}
+                        onClick={() => handleMarkAsComplete(goal.id)}
                         className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       >
                         Mark as Complete
                       </button>
                       <button
-                        onClick={() => {
-                          setnewGoalIdForFailure(goal.id);
-                          console.log("newGoalIdForFailure: " + newGoalIdForFailure);
-                          confirmFailureTx.write();
-                        }}
+                        onClick={() => handleMarkAsFailed(goal.id)}
                         className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       >
                         Mark as Failed
