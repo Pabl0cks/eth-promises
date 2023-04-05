@@ -16,7 +16,7 @@ const GoalContractComponent = () => {
     functionName: "createGoal",
     args: [
       delegatedAddress,
-      BigNumber.from(Date.now() + Number(deadline) * 60 * 60 * 1000),
+      BigNumber.from(Date.now() + Number(deadline) * 24 * 60 * 60 * 1000),
       failFee ? ethers.utils.parseEther(failFee) : ethers.utils.parseEther("0"),
       goalText,
     ],
@@ -51,13 +51,13 @@ const GoalContractComponent = () => {
 
         <div className="mb-4">
           <label htmlFor="deadline" className="block text-gray-700 text-sm font-semibold mb-2">
-            Deadline (in hours):
+            Deadline (in days):
           </label>
           <input
             id="deadline"
             type="number"
             value={deadline}
-            placeholder="24"
+            placeholder="30"
             onChange={e => setDeadline(e.target.value)}
             className="flex border-2 border-base-300 bg-base-200 rounded-full text-accent input focus:outline-none focus:bg-transparent focus:text-gray-400 h-[2.2rem] min-h-[2.2rem] px-4 w-full font-medium placeholder:text-accent/50 text-gray-400"
           />
