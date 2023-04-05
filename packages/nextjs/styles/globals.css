@@ -2,6 +2,16 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 :root,
 [data-theme] {
   background: hsl(var(--b2));
@@ -40,31 +50,31 @@ p {
 }
 
 .goalCard {
-    background-color: #ffffff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    max-width: 480px;
-    width: 100%;
-    flex: 0 0 auto;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  max-width: 480px;
+  width: 100%;
+  flex: 0 0 auto;
 }
 
 .goalTitle {
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
 }
 
 .goalData {
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
 }
 
 .divider {
-    margin: 1.5rem 0;
-    border-color: rgba(0, 0, 0, 0.1);
-    border-style: solid;
+  margin: 1.5rem 0;
+  border-color: rgba(0, 0, 0, 0.1);
+  border-style: solid;
 }
 
 

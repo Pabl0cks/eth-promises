@@ -19,13 +19,11 @@ const EthPromise = () => {
         <GoalContractComponent />
       </div>
       {/* Add the MyGoalsList component as a section */}
-      <div>
-        <h2 className="text-2xl font-bold mt-8">Your Goals</h2>
+      <div className="w-[90%] max-w-7xl m-auto mt-20">
         <MyGoalsList />
       </div>
       {/* Add the DelegatedGoalsList component as a section */}
-      <div>
-        <h2 className="text-2xl font-bold mt-8">Your Delegated Goals</h2>
+      <div className="w-[90%] max-w-7xl m-auto mt-20">
         <DelegatedGoalsList />
       </div>
       {/* Add the GoalsList component as a section */}
