@@ -78,40 +78,11 @@ p {
 }
 
 
-.sliderWrapper {
-  display: flex;
-  overflow: hidden;
-  gap: 1.5rem;
-  padding-bottom: 1.5rem;
-  width: 100%;
-  max-width: calc(480px * 3 + 1.5rem * 2);
+
+.quote::before {
+  content: '“';
 }
 
-/*.sliderWrapper::-webkit-scrollbar {
-  display: none;
-}*/
-
-.sliderContent {
-  display: flex;
-  gap: 1.5rem;
-  transition: transform 0.3s ease-in-out;
-}
-
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 0.5rem;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 10;
-}
-
-.arrowLeft {
-  left: 0;
-}
-
-.arrowRight {
-  right: 0;
+.quote::after {
+  content: '”';
 }

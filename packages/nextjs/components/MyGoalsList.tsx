@@ -62,6 +62,7 @@ const MyGoalsList = () => {
   return (
     <div>
       <h3 className="font-semibold text-xl mb-4">My Goals</h3>
+      <p className="mt-0 mb-8">These are all your promises on ETH</p>
       <div className="flex flex-wrap gap-8">
         {goals.map(goal => (
           <ul className="card bg-secondary w-[23%] p-6" key={goal.id}>

@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { BigNumber } from "ethers";
-import { formatEther } from "ethers/lib/utils";
+import { Address } from "~~/components/scaffold-eth";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 interface Goal {
@@ -22,20 +22,6 @@ const GoalsList = () => {
     functionName: "getAllGoals",
   });
 
-  const sliderContentRef = useRef<HTMLDivElement>(null);
-
-  const scrollLeft = () => {
-    if (sliderContentRef.current) {
-      sliderContentRef.current.scrollBy({ left: -480, behavior: "smooth" });
-    }
-  };
-
-  const scrollRight = () => {
-    if (sliderContentRef.current) {
-      sliderContentRef.current.scrollBy({ left: 480, behavior: "smooth" });
-    }
-  };
-
   useEffect(() => {
     if (allGoals.data) {
       const fetchedGoals: Goal[] = allGoals.data.map((goalData: any) => {
@@ -55,46 +41,23 @@ const GoalsList = () => {
     }
   }, [allGoals.data]);
 
-  const formatDate = (timestamp: number): string => {
-    const date = new Date(timestamp);
-    const options: Intl.DateTimeFormatOptions = {
-      month: "2-digit",
-      day: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "UTC",
-    };
-    return new Intl.DateTimeFormat("en-US", options).format(date);
-  };
-
   return (
-    <div className="goalsListContainer">
-      <div className="arrow arrowLeft" onClick={scrollLeft}>
-        &lt;
-      </div>
-      <div className="sliderWrapper">
-        <div className="sliderContent" ref={sliderContentRef}>
-          {goals.map(goal => (
-            <div key={goal.id}>
-              <div className="goalCard">
-                <p className="goalTitle">Goal ID: {goal.id}</p>
-                <p className="goalData">Goal Text: {goal.goalText}</p>
-                <p className="goalData">Creator: {goal.creator}</p>
-                <p className="goalData">Delegate: {goal.delegate}</p>
-                <p className="goalData">Deadline: {formatDate(goal.deadline)} (UTC)</p>
-                <p className="goalData">Fail Fee: {goal.failFee ? formatEther(goal.failFee) : "N/A"} ETH</p>
-                <p className="goalData">
-                  Status: {goal.completed ? "Completed" : goal.failed ? "Failed" : "In Progress"}
-                </p>
-              </div>
-              <hr className="divider" />
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="arrow arrowRight" onClick={scrollRight}>
-        &gt;
+    <div className="goals-container w-full h-[calc(11.5*3rem)] overflow-y-auto">
+      <div className="flex flex-wrap gap-4">
+        {goals.map(goal => (
+          <>
+            <ul className="card bg-secondary w-[31%] p-6" key={goal.id}>
+              <li className="pb-4 flex">
+                <Address address={goal.creator} />
+              </li>
+              <li className="pb-4 flex">
+                <blockquote className="text-xl italic pl-2 border-l-4 border-gray-300">
+                  <span className="quote">{goal.goalText}</span>
+                </blockquote>
+              </li>
+            </ul>
+          </>
+        ))}
       </div>
     </div>
   );

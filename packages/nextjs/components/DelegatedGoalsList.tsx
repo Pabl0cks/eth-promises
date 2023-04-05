@@ -87,6 +87,7 @@ const DelegatedGoalsList = () => {
   return (
     <div>
       <h3 className="font-semibold text-xl mb-4">Your supervisions</h3>
+      <p className="mt-0 mb-8">Mark the goals assigned to your supervision as completed or as failed</p>
       <div className="flex flex-wrap gap-8">
         {goals.map(goal => (
           <ul className="card bg-secondary w-[23%] p-6" key={goal.id}>
