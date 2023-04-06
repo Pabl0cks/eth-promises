@@ -49,13 +49,13 @@ const DelegatedGoalsList = () => {
 
   useEffect(() => {
     if (newGoalIdForCompletion) {
-      confirmCompletionTx.write();
+      confirmCompletionTx.writeAsync();
     }
   }, [newGoalIdForCompletion]);
 
   useEffect(() => {
     if (newGoalIdForFailure) {
-      confirmFailureTx.write();
+      confirmFailureTx.writeAsync();
     }
   }, [newGoalIdForFailure]);
 
