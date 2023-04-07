@@ -1,10 +1,10 @@
-# Promise on ETH :handshake:	:diamond_shape_with_a_dot_inside:	
+# Promise on ETH :handshake:	:large_blue_diamond:	
 
-![promise-on-eth](https://user-images.githubusercontent.com/55535804/230684185-dfb2fcaa-fd13-4819-9311-7894bc27a27a.png)
+<kbd>![promise-on-eth](https://user-images.githubusercontent.com/55535804/230684185-dfb2fcaa-fd13-4819-9311-7894bc27a27a.png)</kbd>
 
 
 Promise on ETH is a decentralized application built with Scaffold-ETH 2 for its Hackathon.
-This DApp allows users to set up goals and motivate themselves to complete them by setting up a failing fee in ETH. Users have to assign a supervisor who will confirm if the goal is completed or failed by the deadline.
+This DApp allows users to set up goals and motivate themselves to complete them by setting up a failing fee in ETH. Users have to assign a supervisor who will confirm if the goal is completed or failed by the deadline. If the creator of the goal fails, loses the ETH.
 
 ## Demo Video
 
